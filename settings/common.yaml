@@ -1,0 +1,28 @@
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  ap:
+    ssid: !secret wifi_ap_ssid
+    password: !secret wifi_ap_password
+
+# Enable Home Assistant API
+api:
+  reboot_timeout: 0s
+  password: !secret api_password
+
+ota:
+  password: !secret ota_password
+
+
+time:
+  - platform: homeassistant
+
+sensor:
+  - platform: uptime
+    name: ${sensorname} Uptime
+    filters:
+      - lambda: return x / 3600.0;
+    unit_of_measurement: "hours"
+    accuracy_decimals: 2
+    update_interval: !secret uptime_update_interval
