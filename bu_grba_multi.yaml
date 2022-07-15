@@ -1,0 +1,33 @@
+substitutions:
+  devicename: bu_grba_multi
+  sensorname: Buero Gregor Multisensor
+  wifi_ip: "172.18.18.70"
+
+packages:
+  #Include location specific settings
+  #location: !include locations/casa96.yaml
+  #Include common definitions for home (wifi, web server, etc)
+  settings: !include settings/common.yaml
+
+esphome:
+  name: ${devicename}
+  platform: ESP8266
+  board: d1_mini
+  #arduino_version: 2.4.2
+  build_path: build/${devicename}
+
+sensor:
+  - platform: adc
+    pin: A0
+    name: ${sensorname}_lux
+    update_interval: '30s'
+    unit_of_measurement: lux
+    filters:
+      - lambda: |-
+          return (x / 10000.0) * 2000000.0;
+
+binary_sensor:
+  - platform: gpio
+    pin: GPIO13
+    name: ${sensorname}_motion
+    device_class: motion
