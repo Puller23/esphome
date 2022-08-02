@@ -1,0 +1,40 @@
+substitutions:
+  devicename: wemos_test
+  sensorname: wemos_test
+  wifi_ip: "172.18.18.73"
+
+packages:
+  #Include common definitions for home (wifi, web server, etc)
+  settings: !include settings/common.yaml
+
+esphome:
+  name: ${devicename}
+  platform: ESP8266
+  board: d1_mini
+  #arduino_version: 2.4.2
+  build_path: build/${devicename}
+
+dallas:
+  - pin: GPIO4
+
+i2c:
+  sda: GPIO12
+  scl: GPIO14
+  
+sensor:
+  - platform: dallas
+    address: 0xa0000004c8b11428
+    name: ${devicename}_sun_temp1
+  - platform: dallas
+    address: 0x18000004d9f59a28
+    name: ${devicename}_sun_temp2
+  - platform: bme280
+    temperature:
+      name: ${devicename}_temp
+      oversampling: 16x
+    pressure:
+      name: ${devicename}_pressure
+    humidity:
+      name: ${devicename}_humidity
+    address: 0x76
+    update_interval: 60s

@@ -4,8 +4,6 @@ substitutions:
   wifi_ip: "172.18.18.70"
 
 packages:
-  #Include location specific settings
-  #location: !include locations/casa96.yaml
   #Include common definitions for home (wifi, web server, etc)
   settings: !include settings/common.yaml
 
@@ -31,3 +29,6 @@ binary_sensor:
     pin: GPIO13
     name: ${sensorname}_motion
     device_class: motion
+  - platform: gpio
+    pin: GPIO14
+    name: ${sensorname}_buttion1
