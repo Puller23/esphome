@@ -14,27 +14,56 @@ esphome:
   #arduino_version: 2.4.2
   build_path: build/${devicename}
 
-dallas:
-  - pin: GPIO4
+#dallas:
+#  - pin: GPIO4
 
-i2c:
-  sda: GPIO12
-  scl: GPIO14
-  
-sensor:
-  - platform: dallas
-    address: 0xa0000004c8b11428
-    name: ${devicename}_sun_temp1
-  - platform: dallas
-    address: 0x18000004d9f59a28
-    name: ${devicename}_sun_temp2
-  - platform: bme280
-    temperature:
-      name: ${devicename}_temp
-      oversampling: 16x
-    pressure:
-      name: ${devicename}_pressure
-    humidity:
-      name: ${devicename}_humidity
-    address: 0x76
-    update_interval: 60s
+#i2c:
+#  sda: D2
+#  scl: D1
+#binary_sensor:
+#  - platform: gpio
+#    pin:
+#      number: D3
+#      inverted: true
+#    name: ${devicename}_rain
+ #   device_class: moisture
+binary_sensor:
+  - platform: gpio
+    pin: GPIO13
+    name: ${sensorname}_motion
+    device_class: motion
+## dht22
+#sensor:
+#  - platform: dht
+#    pin: D2
+#    model: DHT22
+#    temperature:
+#      name: ${devicename}_temperature
+#    humidity:
+ #     name: ${devicename}_humidity
+#    update_interval: 60s
+#sensor:
+#  - platform: adc
+#    pin: A0
+#    name: ${devicename}_a0
+#    update_interval: 60s
+#  - platform: dallas
+#    address: 0xa0000004c8b11428
+#    name: ${devicename}_sun_temp1
+#  - platform: dallas
+#    address: 0x18000004d9f59a28
+#    name: ${devicename}_sun_temp2
+#  - platform: bme280
+#    temperature:
+#      name: ${devicename}_temp
+#      oversampling: 16x
+#      #filters:
+#      #  - offset: +10.0
+#    pressure:
+#      name: ${devicename}_pressure
+#    humidity:
+ #     name: ${devicename}_humidity
+ #     #filters:
+ ##      # - offset: -7.0
+#    address: 0x76
+#    update_interval: 60s

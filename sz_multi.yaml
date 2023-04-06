@@ -1,0 +1,36 @@
+substitutions:
+  devicename: sz_multi
+  sensorname: sz_multi
+  wifi_ip: "172.18.18.76"
+
+packages:
+  #Include common definitions for home (wifi, web server, etc)
+  settings: !include settings/common.yaml
+
+esphome:
+  name: ${devicename}
+  platform: ESP8266
+  board: d1_mini
+  build_path: build/${devicename}
+
+## Motion Sensor
+binary_sensor:
+  - platform: gpio
+    pin: GPIO12 #D6
+    name: ${sensorname}_motion_l
+    device_class: motion
+  - platform: gpio
+    pin: GPIO13 #D7
+    name: ${sensorname}_motion_r
+    device_class: motion
+
+## Temp and humidity
+sensor:
+  - platform: dht
+    pin: D2
+    model: DHT22
+    temperature:
+      name: ${devicename}_temperature
+    humidity:
+     name: ${devicename}_humidity
+    update_interval: 360s

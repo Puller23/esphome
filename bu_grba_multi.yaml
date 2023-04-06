@@ -18,11 +18,19 @@ sensor:
   - platform: adc
     pin: A0
     name: ${sensorname}_lux
-    update_interval: '30s'
+    update_interval: '300s'
     unit_of_measurement: lux
     filters:
       - lambda: |-
           return (x / 10000.0) * 2000000.0;
+  - platform: dht
+    pin: D2
+    model: DHT22
+    temperature:
+      name: ${sensorname}_temperature
+    humidity:
+     name: ${sensorname}_humidity
+    update_interval: 300s
 
 binary_sensor:
   - platform: gpio
@@ -32,3 +40,7 @@ binary_sensor:
   - platform: gpio
     pin: GPIO14
     name: ${sensorname}_buttion1
+    
+    
+    ## dht22
+#sensor:
